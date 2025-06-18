@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agendamentos</title>
+    <style>
+        body { font-family: Arial; padding: 40px; background: #f4f4f4; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+        th { background: #333; color: white; }
+        h1 { margin-bottom: 20px; }
+        a.logout {
+            display: inline-block;
+            margin-top: 20px;
+            background: #c00;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Agendamentos</h1>
+    <table>
+    <tr>
+        <th>Nome</th>
+        <th>Serviço</th>
+        <th>Data</th>
+        <th>Hora</th>
+    </tr>
+    {% for agendamento in agendamentos %}
+    <tr>
+        <td>{{ agendamento.cliente.nome }}</td>
+        <td>
+            {% for servico in agendamento.servico.all %}
+                {{ servico.nome }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                Nenhum serviço
+            {% endfor %}
+        </td>
+        <td>{{ agendamento.data }}</td>
+        <td>{{ agendamento.hora }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+    <a href="{% url 'logout' %}" class="logout">Sair</a>
+</body>
+</html>

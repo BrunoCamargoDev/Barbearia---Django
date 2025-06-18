@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Barbearia</title>
+    <style>
+        body { font-family: Arial; background: #f0f0f0; padding: 40px; }
+        form { background: white; padding: 30px; max-width: 300px; margin: auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin-top: 10px; }
+        button { padding: 10px; margin-top: 20px; width: 100%; background: #333; color: white; border: none; }
+        .erro { color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <form method="POST">
+        <h2>Login do Dono</h2>
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Usuário" required>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+        {% if erro %}
+            <div class="erro">{{ erro }}</div>
+        {% endif %}
+    </form>
+</body>
+</html>

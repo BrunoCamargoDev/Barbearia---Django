@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agendar horário</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .mensagem {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+        }
+
+        h1 {
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #9f7aea;
+            background-color: #f0eaff;
+            color: #333;
+        }
+
+        button {
+            background-color: #764ba2;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5a3577;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <div class="mensagem"><li style="color: red;">{{ message }}</li></div>
+        {% endfor %}
+    </ul>
+{% endif %}
+    <div class="container">
+        <h1>Agendar horário</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Nome:</label>
+            <input type="text" name="nome" required>
+
+            <label>Telefone:</label>
+            <input type="text" name="telefone" required>
+
+            <label>Serviços:</label>
+            <div>
+                {% for servico in servicos %}
+                    <label style="display: block; margin-bottom: 6px;">
+                        <input type="checkbox" name="servicos" value="{{ servico.id }}">
+                        {{ servico.nome }} - R$ {{ servico.preco }}
+                    </label>
+                {% endfor %}
+            </div>
+
+
+            <label>Data:</label>
+            <input type="date" name="data" required>
+
+            <label>Hora:</label>
+            <input type="time" name="hora" required>
+
+            <button type="submit">Agendar</button>
+        </form>
+    </div>
+</body>
+</html>
