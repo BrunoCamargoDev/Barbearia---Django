@@ -26,7 +26,7 @@ SECRET_KEY = environ.Env().str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = environ.Env().list("ALLOWED_HOSTS")
 
 
 # Application definition
