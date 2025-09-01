@@ -10,3 +10,5 @@ __pycache__/
 
 #configs do vscode
 .vscode/
+
+.env
